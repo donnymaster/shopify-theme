@@ -1,0 +1,57 @@
+<section class="about-ultravit">
+        <div class="text-welcome">
+                <p class="text-welcome"> welcome</p>
+                <p class="text-ultravit">We are <span class="orange"># 1 UltraVit </span></p>
+                <p class="text-desc">Be part of our premier UltraVit community</p>
+        </div>
+        <div class="wrapped-about">
+                <div class="item-about">
+                        <img src="{{ section.settings.heart-logo | img_url: 'master' }}" alt="">
+                        <p>HEALTHY NUTRITION</p>
+                </div>
+                <div class="item-about">
+                        <img src="{{ section.settings.raketa-logo | img_url: 'master' }}" alt="">
+                        <p>Fast Shiping</p>
+                </div>
+                <div class="item-about fix-img">
+                        <img src="{{ section.settings.cult-logo | img_url: 'master' }}" alt="">
+                        <p>pleasant taste</p>
+                </div>
+        </div>
+</section>
+      
+{% schema %}
+{
+  "name": {
+    "en": "Welcome"
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "heart-logo",
+      "label": "heart Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "raketa-logo",
+      "label": "Raketa Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "cult-logo",
+      "label": "Cult Logo"
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "en": "Welcome"
+      },
+      "category": {
+        "en": "Welcome"
+      }
+    }
+  ]
+}
+{% endschema %}
+

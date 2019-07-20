@@ -1,0 +1,74 @@
+{% form 'contact', id: formId %}
+{%- if form.posted_successfully? -%}
+  <div class="page-width">
+    <div class="wrpa-suc">
+        <div class="okey-logo">
+            {% include 'okey' %}
+      
+          </div>
+        <div class="okey-text">
+          <h1>Thank you very much</h1>
+          <p>Thank you for contacting us. We will contact you as soon as possible.</p>
+        </div>
+    </div>
+  </div>
+{% else %}
+  <div class="page-width">
+
+      <div class="links-top" style="margin-bottom: 40px;">
+          <a href="{{ routes.root_url }}" class="first-child">Home</a>
+          <div class="rigtt-arrow">{% include 'links-arrow' %}</div>
+          <a href="/pages/contact" class="end-link orange">Contact Us</a>
+        </div>  
+        {{ post_url }}
+    <div class="grid">
+      <div class="grid__item medium-up--five-sixths medium-up--push-one-twelfth">
+        <div class="section-header text-center botton-text">
+          <h1 class="contact-main">Contact Us</h1>
+        </div>
+
+        <div class="contact-desc">
+          If you have any questions, suggestions or need help with any
+          of our amazing products, send us a message! We are here to 
+          answer your questions weekdays from 9am to 5pm Pacific Time.
+        </div>
+
+        <div class="contact-form form-vertical">
+          {%- assign formId = 'ContactForm' -%}
+            {% include 'form-status', form_id: formId %}
+                <input class="name-chel" placeholder="{{ 'contact.form.name' | t }}" type="text" id="{{ formId }}-name" name="contact[name]" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}">
+                <input
+                  placeholder="{{ 'contact.form.email' | t }} "
+                  type="email"
+                  id="{{ formId }}-email"
+                  name="contact[email]"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                  aria-required="true"
+                  {%- if form.errors contains 'email' -%}
+                    class="input--error"
+                    aria-invalid="true"
+                    aria-describedby="{{ formId }}-email-error"
+                  {%- endif -%}
+                  >
+                {%- if form.errors contains 'email' -%}
+                  <span id="{{ formId}}-email-error" class="input-error-message">incorrect e-mail</span>
+                {%- endif -%}
+
+            <input placeholder="{{ 'contact.form.phone' | t }}" type="tel" id="{{ formId }}-phone" name="contact[phone]" pattern="^380\d{9}$" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+            <textarea placeholder="ENTER YOUR MESSAGE HERE" rows="10" id="{{ formId }}-message" name="contact[body]">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+
+            <div class="form-button">
+              <input type="submit" class="button-f" value="{{ 'contact.form.submit' | t }}">
+            </div>
+
+         
+        </div>
+      </div>
+    </div>
+  </div>
+
+{%- endif -%}  
+
+{% endform %}

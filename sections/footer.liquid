@@ -1,0 +1,375 @@
+<footer>
+    <div class="wrapped-links">
+            <div class="get-in-touch">
+                    <span>Get in touch</span>
+                    <a href="/pages/contact">Contact Us</a>
+                    <a href="#">About Us</a>
+                    <a href="#">Terms & Conditions</a>
+                    <a href="#">Privacy Policy</a>
+                    {% include 'social-sharing' %}
+            </div>
+            <div class="footer-products">
+                    <span>Products</span>
+                    <a href="/collections/daily-essentials">Daily Supplements</a>
+                    <a href="/collections/gummie-vitamins">Gummies</a>
+                    <a href="/collections">Collections</a>
+            </div> 
+            <div class="my-account">
+                    <span>My account</span>
+                    <a href="#">Sign Up</a>
+                    <a href="#">Sign In</a>
+                    <a href="#">Orders history</a>
+            </div>
+            <div class="newsletter">
+                    <span>Newsletter</span>
+                    <p>
+                       Get latest information on Events,
+                       Sales and Offers. Sign up for newsletter 
+                       today!
+                    </p>
+                    <div class="sub">
+                        {% form 'customer', id: formId, novalidate: 'novalidate' %}
+                        {%- if form.posted_successfully? -%}
+                          <span class="mass-ok" tabindex="-1" data-form-status>
+                            {{ 'general.newsletter_form.confirmation' | t }}
+                          </span>
+                        {%- endif -%}
+                        <input type="hidden" name="contact[tags]" value="newsletter">
+                        <div class="input-group {% if form.errors %} input-group--error{% endif %}">
+                          <input type="email"
+                            name="contact[email]"
+                            id="{{ formId }}-email"
+                            class="email-text"
+                            value="{{ form.email }}"
+                            placeholder="Your email"
+                            aria-label="{{ 'general.newsletter_form.email_placeholder' | t }}"
+                            aria-required="true"
+                            required
+                            autocorrect="off"
+                            autocapitalize="off"
+                            {% if form.errors %}
+                              aria-invalid="true"
+                              aria-describedby="{{ formId }}-email-error"
+                              data-form-status
+                            {% endif %}>
+                          <span class="input-group__btn">
+                              <button type="submit" name="commit" id="Subscribe">Subscribe</button>
+                          </span>
+                        </div>
+                        {% if form.errors contains 'email' %}
+                          <span id="{{ formId }}-email-error" class="input-error-message">
+                            {% include 'icon-error' %} {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.
+                          </span>
+                        {% endif %}
+                      {% endform %}                            
+                    </div>
+            </div>
+    </div>
+    <div class="logo-pay">
+            <div class="logo">
+                    <img src="{{ 'ultravit_logo_descript.png' | asset_img_url: 'master' }}" alt="">
+            </div>
+            <p>© Copyright 2016 - 2018 by VPLAB Ltd. All Rights Reserved</p>
+            <div class="pay-system">
+                    <img src="{{ 'pay.png' | asset_img_url: 'master'}}" alt="">
+            </div>
+
+    </div>
+</footer>
+
+
+{% schema %}
+{
+  "name": {
+    "de": "Fußzeile",
+    "en": "Footer",
+    "es": "Pie de página",
+    "fr": "Pied de page",
+    "it": "Footer",
+    "ja": "フッター",
+    "nl": "Voettekst",
+    "pt-BR": "Rodapé",
+    "zh-CN": "页脚",
+    "zh-TW": "頁尾"
+  },
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "header",
+      "content": {
+        "de": "Zahlungsarten",
+        "en": "Payment methods",
+        "es": "Métodos de pago",
+        "fr": "Moyens de paiement",
+        "it": "Metodi di pagamento",
+        "ja": "お支払い方法",
+        "nl": "Betaalmethoden",
+        "pt-BR": "Formas de pagamento",
+        "zh-CN": "支付方式",
+        "zh-TW": "付款方式"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": {
+        "de": "Zahlungs-Buttons anzeigen",
+        "en": "Show payment icons",
+        "es": "Mostrar iconos de pago",
+        "fr": "Afficher les icônes de paiement",
+        "it": "Mostra le icone di pagamento",
+        "ja": "支払いアイコンを表示する",
+        "nl": "Betalingspictogrammen weergeven",
+        "pt-BR": "Exibir ícones de pagamento",
+        "zh-CN": "显示付款图标",
+        "zh-TW": "顯示付款圖示"
+      },
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": {
+        "de": "Farbe",
+        "en": "Color",
+        "es": "Color",
+        "fr": "Couleur",
+        "it": "Colore",
+        "ja": "色",
+        "nl": "Kleur",
+        "pt-BR": "Cor",
+        "zh-CN": "颜色",
+        "zh-TW": "顏色"
+      }
+    },
+    {
+      "type": "color",
+      "id": "color_footer_bg",
+      "label": {
+        "de": "Hintergrundfarbe",
+        "en": "Background",
+        "es": "Fondo",
+        "fr": "Couleur de fond",
+        "it": "Sfondo",
+        "ja": "背景",
+        "nl": "Achtergrond",
+        "pt-BR": "Plano de fundo",
+        "zh-CN": "背景",
+        "zh-TW": "背景"
+      },
+      "default": "#F5F5F5"
+    },
+    {
+      "type": "color",
+      "id": "color_footer_text",
+      "label": {
+        "de": "Text",
+        "en": "Text",
+        "es": "Texto",
+        "fr": "Texte",
+        "it": "Testo",
+        "ja": "テキスト",
+        "nl": "Tekst",
+        "pt-BR": "Texto",
+        "zh-CN": "文本",
+        "zh-TW": "文字"
+      },
+      "default": "#3d4246"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link_list",
+      "name": {
+        "de": "Menü",
+        "en": "Menu",
+        "es": "Menú",
+        "fr": "Menu",
+        "it": "Menu",
+        "ja": "メニュー",
+        "nl": "Menu",
+        "pt-BR": "Menu",
+        "zh-CN": "菜单",
+        "zh-TW": "選單"
+      },
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": {
+            "de": "Überschrift",
+            "en": "Heading",
+            "es": "Título",
+            "fr": "Titre",
+            "it": "Heading",
+            "ja": "見出し",
+            "nl": "Kop",
+            "pt-BR": "Título",
+            "zh-CN": "标题",
+            "zh-TW": "標題"
+          },
+          "default": {
+            "de": "Quick-Links",
+            "en": "Quick links",
+            "es": "Enlaces rápidos",
+            "fr": "Liens rapides",
+            "it": "Link rapidi",
+            "ja": "クイックリンク",
+            "nl": "Snelle links",
+            "pt-BR": "Links rápidos",
+            "zh-CN": "快速链接",
+            "zh-TW": "快速連結"
+          }
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": {
+            "de": "Menü",
+            "en": "Menu",
+            "es": "Menú",
+            "fr": "Menu",
+            "it": "Menu",
+            "ja": "メニュー",
+            "nl": "Menu",
+            "pt-BR": "Menu",
+            "zh-CN": "菜单",
+            "zh-TW": "選單"
+          },
+          "default": "footer"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": {
+        "de": "Text",
+        "en": "Text",
+        "es": "Texto",
+        "fr": "Texte",
+        "it": "Testo",
+        "ja": "テキスト",
+        "nl": "Tekst",
+        "pt-BR": "Texto",
+        "zh-CN": "文本",
+        "zh-TW": "文字"
+      },
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": {
+            "de": "Überschrift",
+            "en": "Heading",
+            "es": "Título",
+            "fr": "Titre",
+            "it": "Heading",
+            "ja": "見出し",
+            "nl": "Kop",
+            "pt-BR": "Título",
+            "zh-CN": "标题",
+            "zh-TW": "標題"
+          },
+          "default": {
+            "de": "Reden Sie über Ihr Unternehmen",
+            "en": "Talk about your business",
+            "es": "Habla sobre tu negocio",
+            "fr": "Parlez de votre entreprise",
+            "it": "Parla della tua attività commerciale",
+            "ja": "あなたのビジネスについて語る",
+            "nl": "Vertel over uw bedrijf",
+            "pt-BR": "Fale sobre o seu negócio",
+            "zh-CN": "谈论您的业务",
+            "zh-TW": "描述您的商家"
+          }
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": {
+            "de": "Text",
+            "en": "Text",
+            "es": "Texto",
+            "fr": "Texte",
+            "it": "Testo",
+            "ja": "テキスト",
+            "nl": "Tekst",
+            "pt-BR": "Texto",
+            "zh-CN": "文本",
+            "zh-TW": "文字"
+          },
+          "default": {
+            "de": "<p>Teilen Sie Ihre Shop-Details, Werbeaktionen oder Markeninhalte mit Ihren Kunden.</p>",
+            "en": "<p>Share store details, promotions, or brand content with your customers.</p>",
+            "es": "<p>Comparte detalles de la tienda, promociones o contenido de la marca con tus clientes.</p>",
+            "fr": "<p>Partagez les détails de la boutique, les promotions ou le contenu de la marque avec vos clients.</p>",
+            "it": "<p>Condividi dettagli del negozio, promozioni o contenuti del brand con i clienti.</p>",
+            "ja": "<p>ストア詳細、プロモーション、ブランドのコンテンツをお客様と共有する。</p>",
+            "nl": "<p>Deel winkeldetails, promoties of merkinhoud met uw klanten.</p>",
+            "pt-BR": "<p>Compartilhe detalhes da loja, promoções ou conteúdo da marca com seus clientes.</p>",
+            "zh-CN": "<p>与您的客户共享商店详细信息、促销信息或品牌内容。</p>",
+            "zh-TW": "<p>與客戶分享商店的詳細資訊、宣傳活動或品牌內容。</p>"
+          }
+        }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "limit": 1,
+      "name": {
+        "de": "Newsletter-Anmeldung",
+        "en": "Newsletter signup",
+        "es": "Suscripción al boletín",
+        "fr": "Inscription",
+        "it": "Iscriviti alla Newsletter",
+        "ja": "メールマガジンの登録",
+        "nl": "Nieuwsbriefaanmelding",
+        "pt-BR": "Assinatura da newsletter",
+        "zh-CN": "新闻通讯注册",
+        "zh-TW": "訂閱電子報"
+      },
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": {
+            "de": "Überschrift",
+            "en": "Heading",
+            "es": "Título",
+            "fr": "Titre",
+            "it": "Heading",
+            "ja": "見出し",
+            "nl": "Kop",
+            "pt-BR": "Título",
+            "zh-CN": "标题",
+            "zh-TW": "標題"
+          },
+          "info": {
+            "de": "Abonnenten werden zu Ihrer \"akzeptiert Marketingmaterial\"-Liste hinzugefügt [Kundenliste.](/admin/customers?query=&accepts_marketing=1)",
+            "en": "Subscribers will be added to your “accepts marketing” [customer list.](/admin/customers?query=&accepts_marketing=1)",
+            "es": "Se añadirá los suscriptores a tu lista \"acepta marketing\"[lista de clients.](/admin/customers?query=&accepts_marketing=1)",
+            "fr": "Les abonnés seront ajoutés à votre [liste de clients](/admin/customers?query=&accepts_marketing=1) « Accepte le marketing ».",
+            "it": "Gli iscritti verranno aggiunti al tuo [elenco clienti](/admin/customers?query=&accepts_marketing=1) “Accetta marketing”.",
+            "ja": "購読者は「マーケティングを受け入れる」[顧客リスト](/admin/customers?query=&accepts_marketing=1)に追加されます。",
+            "nl": "Abonnees worden toegevoegd aan uw \"accepteert marketing\" [klantenlijst.](/admin/customers?query=&accepts_marketing=1)",
+            "pt-BR": "Os assinantes serão adicionados à sua lista de pessoas que “aceitam marketing” [lista de clientes.](/admin/customers?query=&accepts_marketing=1)",
+            "zh-CN": "订阅者将被添加到您的“接受营销”部分 [客户列表。](/admin/customers?query=&accepts_marketing=1)",
+            "zh-TW": "系統會將訂閱者新增至您的「接受行銷」[客戶清單。](/admin/customers?query=&accepts_marketing=1)"
+          },
+          "default": {
+            "de": "Newsletter",
+            "en": "Newsletter",
+            "es": "Boletín",
+            "fr": "Newsletter",
+            "it": "Newsletter",
+            "ja": "メールマガジン",
+            "nl": "Nieuwsbrief",
+            "pt-BR": "Newsletter",
+            "zh-CN": "新闻通讯",
+            "zh-TW": "電子報"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

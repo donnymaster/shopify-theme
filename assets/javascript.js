@@ -1,0 +1,1 @@
+!function(){var e=document.querySelector(".mobile-but"),t=document.querySelector(".right-menu");e.addEventListener("click",function(){t.classList.toggle("show-menu")})}();

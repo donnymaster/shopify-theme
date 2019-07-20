@@ -1,0 +1,64 @@
+{%- assign endD = paginate.pages | minus: 1 -%}
+{% if paginate.pages <= 5 %}
+  <div class="pag-arrow-tt">
+      {% if paginate.previous.is_link %}
+        <a class="s-e-page" href="{{ paginate.previous.url }}">{% include 'chevron-left' %}</a>
+      {% else %}
+      <a class="s-e-page" href="#">{% include 'chevron-left' %}</a>
+      {% endif %}
+    {%- for i in (1..paginate.pages) -%}
+      {%- if paginate.current_page == i -%}
+        <a style="color: #ff7933;" href="?page={{ i }}">{{ i }}</a>
+      {%- else -%}
+        <a href="?page={{ i }}">{{ i }}</a>
+      {%- endif -%}
+    {%- endfor -%}
+    {% if paginate.next.is_link %}
+      <a class="s-e-page" href="{{ paginate.next.url }}">{% include 'chevron-right' %}</a>
+    {% else %}
+      <a class="s-e-page" href="#">{% include 'chevron-right' %}</a>
+    {% endif %}
+  </div>
+{% else %}
+  <div class="pag-arrow-tt">
+    {% if paginate.previous.is_link %}
+      <a class="s-e-page" href="{{ paginate.previous.url }}">{% include 'chevron-left' %}</a>
+    {% else %}
+      <a class="s-e-page" href="#">{% include 'chevron-left' %}</a>
+    {% endif %}
+    
+    {% if paginate.current_page >= 5 and paginate.current_page <= paginate.pages %}
+      {%- assign valueN = paginate.current_page | minus: 4 -%}
+      {%- assign endN = valueN | plus: 5 -%}
+      {% if paginate.current_page > 5 %}
+        <a href="#">...</a>
+      {% endif %}
+      {%- for i in (valueN..endN) -%}
+        {% if i > paginate.pages %}
+          {% break %}
+        {% endif %}
+        {%- if paginate.current_page == i -%}
+          <a style="color: #ff7933;" href="?page={{ i }}">{{ i }}</a>
+        {%- else -%}
+          <a href="?page={{ i }}">{{ i }}</a>
+        {%- endif -%}
+      {%- endfor -%}
+    {% elsif paginate.current_page <= 5 %}
+      {%- for i in (1..5) -%}
+        {%- if paginate.current_page == i -%}
+          <a style="color: #ff7933;" href="?page={{ i }}">{{ i }}</a>
+        {%- else -%}
+          <a href="?page={{ i }}">{{ i }}</a>
+        {%- endif -%}
+      {%- endfor -%}
+    {% endif %}
+    {% if paginate.current_page != paginate.pages and paginate.current_page != endD %}
+    <a href="#">...</a>
+    {% endif %}
+    {% if paginate.next.is_link %}
+      <a class="s-e-page" href="{{ paginate.next.url }}">{% include 'chevron-right' %}</a>
+    {% else %}
+      <a class="s-e-page" href="#">{% include 'chevron-right' %}</a>
+    {% endif %}
+  </div>
+{% endif %}

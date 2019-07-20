@@ -1,0 +1,38 @@
+<section class="daily-essentials">
+    <div class="top-menu-daily">
+      <div class="left-text-menu">
+            <h1> DAily essentials</h1>
+      </div>
+        <a href="/collections/daily-essentials"><span class="right-text-menu">Explore</span> <img src="{{ 'right-arrow.png' | asset_img_url: 'medium' }}" alt="right-arrow"></a>
+    </div>
+    
+    <div class="wrapped-daily-items">
+            {% for product in collections.Daily-Essentials.products limit:4 %}
+            <div class="item-feat daily">
+                  <img src="{{ product.featured_image | img_url: 'master' }}" alt="product">
+                  <h3>{{ product.title }}</h3>
+                  <h4>{{ product.price | money }}</h4>
+                  <a href="{{ product.url }}">Add to cart</a>
+          </div>   
+          {% endfor %} 
+    </div>
+</section>
+  
+  {% schema %}
+  {
+    "name": {
+      "en": "Daily Essentials"
+    },
+    "presets": [
+      {
+        "name": {
+          "en": "Daily Essentials"
+        },
+        "category": {
+          "en": "Collection"
+        }
+      }
+    ]
+  }
+  {% endschema %}
+  

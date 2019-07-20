@@ -1,0 +1,31 @@
+
+    <section class="featyred_product">
+        <div class="wrapped-items-featyred">
+                <div class="item-feat-banner">
+                          <h1>Featured collection</h1>
+                         <img class="image-select-feat" src="{{ section.settings.image | img_url: 'master' }}" alt="image">
+                      </div>
+                      {% for product in collections.featured-products.products %}
+                      <div class="item-feat">
+                            <img src="{{ product.featured_image | img_url: 'master' }}" alt="product">
+                            <h3>{{ product.title }}</h3>
+                            <h4>{{ product.price | money }}</h4>
+                            <a href="{{ product.url }}">Add to cart</a>
+                    </div>   
+                    {% endfor %} 
+        </div>
+</section>
+
+{% schema %}
+{
+  "name": "Select Image",
+  "class": "image-select-feat",
+  "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Upload image"
+      }
+  ]
+}
+{% endschema %}
