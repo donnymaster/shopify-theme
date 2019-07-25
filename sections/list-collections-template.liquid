@@ -23,12 +23,52 @@
           </div>
           <div class="wrap-item-col">
             {% for product in collection.products limit:4 %}
-            <div class="item-feat daily">
-              <img src="{{ product.featured_image | img_url: 'master' }}" alt="product">
-              <h3>{{ product.title }}</h3>
-              <h4>{{ product.price | money }}</h4>
-              <a href="{{ product.url }}">Add to cart</a>
-            </div>   
+            <a href="{{product.url}}" class="item-feat daily">
+                <img src="{{ product.featured_image | img_url: 'master' }}" alt="product">
+                <h3>{{ product.title }}</h3>
+                <h4>{{ product.price | money }}</h4>
+                <div class="but-add-cart">
+                    {% form 'product', product, class:form_classes, novalidate: 'novalidate', data-product-form: '' %}                            
+                    <select name="id" id="ProductSelect-{{ section.id }}" class="product-form__variants no-js">
+                      {% for variant in product.variants %}
+                        {% if variant.available %}
+                          <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">
+                            {{ variant.title }}
+                          </option>
+                        {% else %}
+                          <option disabled="disabled">{{ variant.title }} - {{ 'products.product.sold_out' | t }}</option>
+                        {% endif %}
+                      {% endfor %}
+                    </select>
+        
+                    <div class="product-form__error-message-wrapper product-form__error-message-wrapper--hidden" data-error-message-wrapper role="alert">
+                      {% include 'icon-error' %} <span class="product-form__error-message" data-error-message>{{ 'products.product.quantity_minimum_message' | t }}</span>
+                    </div>
+        
+                    <div class="wrapped-button-cart">
+                      <button type="submit" name="add"
+                        {% unless product.available %} aria-disabled="true"{% endunless %}
+                        aria-label="{% unless product.available %}{{ 'products.product.sold_out' | t }}{% else %}{{ 'products.product.add_to_cart' | t }}{% endunless %}"
+                        class="btn product-form__cart-submit"
+                        data-add-to-cart>
+                        <span data-add-to-cart-text>
+                          {% unless product.available %}
+                            {{ 'products.product.sold_out' | t }}
+                          {% else %}
+                            {{ 'products.product.add_to_cart' | t }}
+                          {% endunless %}
+                        </span>
+                        <span class="hide" data-loader>
+                          {% include 'icon-spinner' %}
+                        </span>
+                      </button>
+                      {% if section.settings.enable_payment_button %}
+                        {{ form | payment_button }}
+                      {% endif %}
+                    </div>
+                  {% endform %}
+                </div>
+        </a> 
             {% endfor %}
           </div>
           </div>

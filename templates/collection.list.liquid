@@ -1,6 +1,6 @@
 
 
-{% paginate collection.products by 6 %}
+{% paginate collection.products by 3 %}
 <div data-section-id="{{ section.id }}" data-section-type="collection-template">
   <header class="collection-header">
     {%- assign is_filter_by_available = false -%}
@@ -54,11 +54,11 @@
               <a href="{{ routes.root_url }}" class="first-child">Home</a>
               <div class="rigtt-arrow">{% include 'links-arrow' %}</div>
               {% if collection.title == 'Products' %}
-              <a href="/collections/all" class="end-link orange">Shop</a>
+              <a href="/collections/all?view=list" class="end-link orange">Shop</a>
               {% else %}   
-                <a href="/collections/all" class="end-link">Shop</a>
+                <a href="/collections/all?view=list" class="end-link">Shop</a>
                 <div class="rigtt-arrow">{% include 'links-arrow' %}</div>
-                <a href="{{ collection.url }}" class="end-link orange">{{ collection.title}}</a>            
+                <a href="{{ collection.url }}?view=list" class="end-link orange">{{ collection.title}}</a>            
               {% endif %}
             </div>  
             <div class="name-page-ff pos-new">
@@ -72,21 +72,22 @@
                       <div class="drop-menu-sel">
                         <select name="sort_by" id="SortBy"
                           class="drop-w-w"
-                          aria-describedby="a11y-refresh-page-message a11y-selection-message"
                           data-default-sortby="{{ collection.default_sort_by }}"
-
+                          onchange="location = this.value;"
                         >
-                          {%- for option in collection.sort_options -%}
+                         {%- for option in collection.sort_options -%}
                             <option value="{{ option.value }}" {% if option.value == sort_by %}selected="selected"{% endif %}>{{ option.name }}</option>
                           {%- endfor -%}
+
+                       
                         </select>
                       </div>
-                      <div class="group-lik">
+                      <div class="group-lik"> 
                           <a href="{{ collection.url }}?page={{ paginate.current_page }}">
-                            <div>{% include 'link-tab' %}</div>
+                            <div class="white-svg">{% include 'link-tab' %}</div>
                         </a>
-                          <a href="{{ collection.url }}?view=list">
-                            <div class="white-svg">{% include 'list-link' %}</div>
+                          <a href="{{ collection.url }}?view=list&page={{ paginate.current_page }}">
+                            <div>{% include 'list-link' %}</div>
                         </a>
                       </div>
                     </div>
@@ -98,19 +99,19 @@
         <div class="wrapped-tab-list">
           <div class="colliection-links">
             {%- if nameCollection == 'Products' -%}
-            <div class="link-once"><a style="font-weight: bold;" href="/collections/all">All products</a></div>
+            <div class="link-once"><a style="font-weight: bold;" href="/collections/all?view=list">All products</a></div>
             {%- else -%}
-            <div class="link-once"><a href="/collections/all">All products</a></div>
+            <div class="link-once"><a href="/collections/all?view=list">All products</a></div>
             {%- endif -%}
             {% for collection in collections %}
-            {%- if collection.title == 'featured-products' -%}
-            {% continue %}
-            {%- endif -%}
+              {%- if collection.title == 'featured-products' -%}
+                {% continue %}
+              {%- endif -%}
               <div class="link-once">
                 {%- if collection.title == nameCollection -%}
-                <a style="font-weight: bold;" href="{{ collection.url}}">{{ collection.title }}</a>
+                <a style="font-weight: bold;" href="{{ collection.url}}?view=list">{{ collection.title }}</a>
                 {%- else -%}
-                <a href="{{ collection.url}}">{{ collection.title }}</a>
+                <a href="{{ collection.url}}?view=list">{{ collection.title }}</a>
                 {%- endif -%}
               </div>
             {% endfor %}
@@ -124,68 +125,68 @@
                   <span class="pre-count-t">{{ paginate.page_size }} items</span>
                 {% endif %}
               {%- endif -%}
-              {%- assign colTovar = collection.all_products_count | minus : paginate.current_offset -%}
-              {%- if collection.all_products_count <= 5 or paginate.page_size <= 5 or colTovar <= 5 -%}
-              <div class="m-item-t" style="justify-content: space-evenly;">
-              {%- else -%}
               <div class="m-item-t">
-              {%- endif -%}
-              {%- for product in collection.products -%}
-
-                {%- comment -%}links{%- endcomment -%}
-
-                {%- if collection.title == 'Products' -%}
-                  {%- assign proUrl = product.url -%}
-                {%- else -%}
-                  {%- assign proUrl = collection.url | append: product.url -%}
-                {%- endif -%}
-
-                        <a href="{{proUrl}}" class="item-feat p-col-feat">
-                            <img src="{{ product.featured_image | img_url: 'master' }}" alt="product">
-                            <h3>{{ product.title }}</h3>
-                            <h4>{{ product.price | money }}</h4>
-                            <div class="but-add-cart">
-                                {% form 'product', product, class:form_classes, novalidate: 'novalidate', data-product-form: '' %}                            
-                                <select name="id" id="ProductSelect-{{ section.id }}" class="product-form__variants no-js">
-                                  {% for variant in product.variants %}
-                                    {% if variant.available %}
-                                      <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">
-                                        {{ variant.title }}
-                                      </option>
-                                    {% else %}
-                                      <option disabled="disabled">{{ variant.title }} - {{ 'products.product.sold_out' | t }}</option>
-                                    {% endif %}
-                                  {% endfor %}
-                                </select>
-                    
-                                <div class="product-form__error-message-wrapper product-form__error-message-wrapper--hidden" data-error-message-wrapper role="alert">
-                                  {% include 'icon-error' %} <span class="product-form__error-message" data-error-message>{{ 'products.product.quantity_minimum_message' | t }}</span>
-                                </div>
-                    
-                                <div class="wrapped-button-cart">
-                                  <button type="submit" name="add"
-                                    {% unless product.available %} aria-disabled="true"{% endunless %}
-                                    aria-label="{% unless product.available %}{{ 'products.product.sold_out' | t }}{% else %}{{ 'products.product.add_to_cart' | t }}{% endunless %}"
-                                    class="btn product-form__cart-submit"
-                                    data-add-to-cart>
-                                    <span data-add-to-cart-text>
-                                      {% unless product.available %}
-                                        {{ 'products.product.sold_out' | t }}
-                                      {% else %}
-                                        {{ 'products.product.add_to_cart' | t }}
-                                      {% endunless %}
-                                    </span>
-                                    <span class="hide" data-loader>
-                                      {% include 'icon-spinner' %}
-                                    </span>
-                                  </button>
-                                  {% if section.settings.enable_payment_button %}
-                                    {{ form | payment_button }}
-                                  {% endif %}
-                                </div>
-                              {% endform %}
-                            </div>
-                    </a>
+                  {% for product in collection.products %}
+                    {%- if collection.title != 'Products' -%}
+                      {%- assign urlProduct = collection.url | append: product.url -%}
+                    {%- else -%}
+                      {%- assign urlProduct = product.url -%}
+                    {%- endif -%}
+                    <div class="wrap-it-fe">
+                     <div class="img-prod">
+                       <a href="{{urlProduct}}"><img src="{{ product.featured_image | img_url: 'master' }}" alt="product"></a>
+                     </div>
+                     <div class="right-desc">
+                         <div class="title-money">
+                             <p>{{ product.title }}</p>
+                             <div class="money-ri">
+                                 {{product.price | money }}
+                             </div>
+                         </div>
+                         <div class="desc-text-but">
+                             <p>{{product.description}}</p>
+                             {% form 'product', product, class:form_classes, novalidate: 'novalidate', data-product-form: '' %}                            
+                             <select name="id" id="ProductSelect-{{ section.id }}" class="product-form__variants no-js">
+                               {% for variant in product.variants %}
+                                 {% if variant.available %}
+                                   <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">
+                                     {{ variant.title }}
+                                   </option>
+                                 {% else %}
+                                   <option disabled="disabled">{{ variant.title }} - {{ 'products.product.sold_out' | t }}</option>
+                                 {% endif %}
+                               {% endfor %}
+                             </select>
+                 
+                             <div class="product-form__error-message-wrapper product-form__error-message-wrapper--hidden" data-error-message-wrapper role="alert">
+                               {% include 'icon-error' %} <span class="product-form__error-message" data-error-message>{{ 'products.product.quantity_minimum_message' | t }}</span>
+                             </div>
+                 
+                             <div class="wrapped-button-cart" style="display: inline-block; margin-top: 20px;">
+                               <button type="submit" name="add"
+                                 {% unless product.available %} aria-disabled="true"{% endunless %}
+                                 aria-label="{% unless product.available %}{{ 'products.product.sold_out' | t }}{% else %}{{ 'products.product.add_to_cart' | t }}{% endunless %}"
+                                 class="btn product-form__cart-submit"
+                                 data-add-to-cart>
+                                 <span data-add-to-cart-text>
+                                   {% unless product.available %}
+                                     {{ 'products.product.sold_out' | t }}
+                                   {% else %}
+                                     {{ 'products.product.add_to_cart' | t }}
+                                   {% endunless %}
+                                 </span>
+                                 <span class="hide" data-loader>
+                                   {% include 'icon-spinner' %}
+                                 </span>
+                               </button>
+                               {% if section.settings.enable_payment_button %}
+                                 {{ form | payment_button }}
+                               {% endif %}
+                             </div>
+                           {% endform %}
+                         </div>
+                     </div>
+                 </div>
                   {% endfor %}
               </div>
 
@@ -194,7 +195,7 @@
               {%- endif -%}
               <div class="page-ff top-d">
                   {% if paginate.pages > 1 %}
-                    {% include 'pagination' %}
+                    {% include 'pagination-list' %}
                   {% endif %}
               </div>
           </div>
@@ -204,5 +205,4 @@
 </div>
 
 {% endpaginate %}
-
 

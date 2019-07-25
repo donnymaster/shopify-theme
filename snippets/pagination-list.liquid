@@ -9,9 +9,9 @@
       {% endif %}
     {%- for i in (1..paginate.pages) -%}
       {%- if paginate.current_page == i -%}
-        <a style="color: #ff7933;" href="?page={{ i }}">{{ i }}</a>
+        <a style="color: #ff7933;" href="?view=list&page={{ i }}">{{ i }}</a>
       {%- else -%}
-        <a href="?page={{ i }}">{{ i }}</a>
+        <a href="?view=list&page={{ i }}">{{ i }}</a>
       {%- endif -%}
     {%- endfor -%}
     {% if paginate.next.is_link %}
@@ -39,17 +39,17 @@
           {% break %}
         {% endif %}
         {%- if paginate.current_page == i -%}
-          <a style="color: #ff7933;" href="?page={{ i }}">{{ i }}</a>
+          <a style="color: #ff7933;" href="?view=list&page={{ i }}">{{ i }}</a>
         {%- else -%}
-          <a href="?page={{ i }}">{{ i }}</a>
+          <a href="?view=list&page={{ i }}">{{ i }}</a>
         {%- endif -%}
       {%- endfor -%}
     {% elsif paginate.current_page <= 5 %}
       {%- for i in (1..5) -%}
         {%- if paginate.current_page == i -%}
-          <a style="color: #ff7933;" href="?page={{ i }}">{{ i }}</a>
+          <a style="color: #ff7933;" href="?view=list&page={{ i }}">{{ i }}</a>
         {%- else -%}
-          <a href="?page={{ i }}">{{ i }}</a>
+          <a href="?view=list&page={{ i }}">{{ i }}</a>
         {%- endif -%}
       {%- endfor -%}
     {% endif %}
@@ -63,3 +63,4 @@
     {% endif %}
   </div>
 {% endif %}
+

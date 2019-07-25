@@ -116,7 +116,7 @@
     }
     .mobile-menu{
         display: flex;
-        width: 66px;
+        width: 83px;
         align-items: center;
         justify-content: space-between;
     }
@@ -161,6 +161,18 @@
     nav {
         height: 87px;
     }
+    a.site-header__icon.site-header__cart {
+        display: flex;
+        align-items: center;
+        width: 39px;
+        margin-top: -6px;
+        color: #ff7933;
+        justify-content: space-between;
+    }
+    a.site-header__icon.site-header__cart.hide__cart{
+        display: none;
+    }
+
 }
 
 @media (max-width: 578px){
@@ -271,4 +283,313 @@
     .wrapped-links{
         justify-content: space-evenly;
     }
+}
+
+@media (max-width: 1168px){
+    .img-prod {
+        width: 57%;
+    }
+    .img-prod img {
+        width: 75%;
+    }
+
+}
+
+@media (max-width: 962px){
+    .img-prod {
+        width: 76%;
+    }
+    .desc-text-but a {
+        margin-top: 65px;
+    }
+}
+
+@media (max-width: 885px){
+    .wrap-it-fe {
+        flex-direction: column;
+        align-items: center;
+    }
+    .img-prod {
+        width: 48%;
+        margin-right: 0;
+        margin-bottom: 23px !important;
+    }
+    .desc-text-but{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 12px;
+        border-bottom: 1px solid lightgray;
+    }
+    .desc-text-but p {
+        text-align: justify;
+    }
+    .desc-text-but a {
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 544px)
+{
+    .img-prod {
+        width: 68%;
+    }
+}
+ 
+@media (max-width: 900px){
+    .wrap-like{
+        justify-content: space-evenly;
+    }
+    .wrap-like a.item-feat{
+        width: 40%;
+    }
+}
+@media (max-width: 653px){
+    .wrap-like a.item-feat{
+        width: 70%;
+    }
+}
+@media (max-width: 451px){
+    .wrap-like a.item-feat{
+        width: 90%;
+    }
+}
+
+@media (max-width: 809px){
+    .main-prod-img{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .wrapped-photo {
+        height: 888px;
+        width: 100%;
+    }
+    .pro-title {
+        text-align: center;
+    }
+    .pricepro {
+        text-align: center;
+    }
+    .add-to-cart {
+        display: flex;
+        justify-content: center;
+    }
+    .right-prod-desc{
+        width: 96%;
+    }
+
+}
+@media (max-width: 749px){
+    .wrapped-mini-link{
+        margin-top: 99px;
+    }
+}
+@media (max-width: 626px){
+    .wrapped-photo {
+        height: 396px;
+    }
+}
+@media (max-width: 570px){
+    .wrapped-photo {
+        height: 363px;
+    }
+}
+@media (max-width: 512px){
+    .wrapped-photo {
+        height: 341px;
+    }
+}
+@media (max-width: 626px){
+    .wrapped-photo {
+        height: 820px;
+    }
+}
+
+@media (max-width: 1326px){
+    .click-mini-img {
+        bottom: -20px !important;
+    }
+}
+@media (max-width: 1196px){
+    .click-mini-img {
+        bottom: -5px !important;
+    }
+}
+@media (max-width: 1142px){
+    .click-mini-img {
+        bottom: 19px !important;
+    }
+}
+
+@media (max-width: 1132px){
+    .click-mini-img {
+        bottom: 49px !important;
+    }
+}
+@media (max-width: 1110px){
+    .click-mini-img {
+        bottom: 85px !important;
+        left:0 !important;
+    }
+}
+ 
+@media (max-width: 1054px){
+    .click-mini-img {
+        bottom: 116px !important;
+    }
+}
+@media (max-width: 1018px){
+    .click-mini-img {
+        bottom: 136px !important;
+        width: 100%;
+    }
+}
+@media (max-width: 1018px){
+    .click-mini-img {
+        bottom: 136px !important;
+        width: 100%;
+    }
+}
+@media (max-width: 987px){
+    .click-mini-img {
+        bottom: 160px !important;
+    }
+}
+@media (max-width: 976px){
+    .click-mini-img {
+        bottom: 188px !important;
+    }
+}
+@media (max-width: 946px){
+    .click-mini-img {
+        bottom: 211px !important;
+    }
+}
+@media (max-width: 921px){
+    .click-mini-img {
+        bottom: 250px !important;
+    }
+}
+@media (max-width: 874px){
+    .click-mini-img {
+        bottom: 283px !important;
+    }
+}
+@media (max-width: 870px){
+    .click-mini-img {
+        bottom: 313px !important;
+    }
+}
+@media (max-width: 832px){
+    .click-mini-img {
+        bottom: 338px !important;
+    }
+}
+@media (max-width: 819px){
+    .click-mini-img {
+        bottom: 370px !important;
+    }
+}
+@media (max-width: 809px){
+    .click-mini-img {
+        bottom: 8px !important;
+        display: flex;
+        justify-content: center;
+    }
+}
+@media (max-width: 789px){
+    .click-mini-img {
+        bottom: 11px !important;
+        display: flex;
+        justify-content: center;
+    }
+}
+@media (max-width: 708px){
+    .click-mini-img {
+        bottom: 41px !important;
+        display: flex;
+        justify-content: center;
+    }
+}
+@media (max-width: 588px){
+    .click-mini-img {
+        bottom: 76px!important;
+    }
+
+}
+@media (max-width: 572px){
+    .wrapped-photo {
+        height: 737px;
+    }
+    .click-mini-img {
+        bottom: 8px!important;
+    }
+
+}
+@media (max-width: 552px){
+    .wrapped-photo {
+        height: 737px;
+    }
+    .click-mini-img {
+        bottom: 49px!important;
+    }
+}
+@media (max-width: 496px){
+    .wrapped-photo {
+        height: 696px;
+    }
+    .click-mini-img {
+        bottom: 22px!important;
+    }
+}
+
+@media (max-width: 432px){
+    .click-mini-img {
+        bottom: 32px!important;
+    }
+    .wrapped-photo {
+        height: 607px;
+    }
+}
+
+@media (max-width: 406px){
+    .click-mini-img {
+        bottom: 32px!important;
+    }
+    .wrapped-photo {
+        height: 607px;
+    }
+}
+
+
+@media (max-width: 394px){
+    .click-mini-img {
+        bottom: 22px!important;
+    }
+    .wrapped-photo {
+        height: 547px;
+    }
+}
+@media (max-width: 375px){
+    .wrapped-photo {
+        height: 514px;
+    }
+    .product-ll a:not(:last-child), .product-ll div:not(:last-child) {
+        margin-right: 5px;
+    }
+}
+@media (max-width: 350px){
+    .wrapped-photo {
+        height: 500px; 
+    }
+}
+@media (min-width: 1366px){
+    nav {
+        width: 1127px;
+    }
+    .wrapped-links{
+        width: 1127px;
+    }    
 }

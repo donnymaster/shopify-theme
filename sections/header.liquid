@@ -6,6 +6,7 @@
                 {% else %}
                   <div class="h2 site-header__logo">
                 {% endif %}
+                
                   {% if section.settings.logo %}
                     {%- assign img_url = section.settings.logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
                     <a href="{{ routes.root_url }}" class="site-header__logo-image{% if section.settings.align_logo == 'center' %} site-header__logo-image--centered{% endif %}">
@@ -37,9 +38,14 @@
         </div>
 
           <div class="mobile-menu">
-                      <div class="mobile-but">{% include 'mobile' %}</div>
-                      <a href="{{ routes.cart_url }}" class="site-header__icon site-header__cart">
-                          {% include 'icon-cart' %}
+                      <div class="mobile-but">{% include 'mobile' %}</div>   
+                        {%- if cart.item_count >= 10 -%}
+                        <a href="{{ routes.cart_url }}" style="width: 46px;" class="site-header__icon site-header__cart">
+                        {%- else -%} 
+                        <a href="{{ routes.cart_url }}" class="site-header__icon site-header__cart">
+                        {%- endif -%}
+                      
+                          {% include 'icon-cart' %} <span data-cart-count>{{ cart.item_count }}</span>
                         </a>
           </div>
           <div class="right-menu">
@@ -49,8 +55,12 @@
               </div>
               <div class="bottom-menu">
                  {% include 'site-nav' %}
-                  <a href="{{ routes.cart_url }}" class="site-header__icon site-header__cart hide__cart">
-                    {% include 'icon-cart' %}
+                 {%- if cart.item_count >= 10 -%}
+                 <a href="{{ routes.cart_url }}" style="width: 41px;" class="site-header__icon site-header__cart hide__cart">
+                 {%- else -%} 
+                 <a href="{{ routes.cart_url }}" class="site-header__icon site-header__cart hide__cart">
+                 {%- endif -%}
+                    {% include 'icon-cart' %} <span data-cart-count>{{ cart.item_count }}</span>
                   </a>
               </div>
           </div>

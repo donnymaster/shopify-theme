@@ -3,16 +3,8 @@
 {% endcomment %}
 
 {% section 'product-template' %}
-{% section 'product-recommendations' %}
+{% section 'you-like' %}
 
-{% if collection %}
-  <div class="text-center return-link-wrapper page-width">
-    <a href="{{ collection.url }}" class="btn btn--secondary btn--has-icon-before return-link">
-      {% include 'icon-arrow-left' %}
-      {{ 'products.product.back_to_collection' | t: title: collection.title }}
-    </a>
-  </div>
-{% endif %}
 
 <script>
   // Override default values of shop.strings for each template.
@@ -26,7 +18,6 @@
 </script>
 
 {% assign current_variant = product.selected_or_first_available_variant %}
-
 <script type="application/ld+json">
 {
   "@context": "http://schema.org/",
@@ -50,7 +41,7 @@
   "offers": [
     {%- for variant in product.variants -%}
       {
-        "@type" : "Offer",
+        "@type" : "Offer", 
         {%- if variant.sku != blank -%}
           "sku": {{ variant.sku | json }},
         {%- endif -%}

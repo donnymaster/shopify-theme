@@ -2,8 +2,8 @@
 
   {% if cart.item_count > 0 %}
     <div class="cart-header">
-      <h1 class="cart-header__title">{{ 'cart.general.title' | t }}</h1>
-      <a href="{{ routes.all_products_collection_url }}" class="text-link text-link--accent">
+      <h1 class="cart-header__title cart-tt-pro">{{ 'cart.general.title' | t }}</h1>
+      <a href="{{ routes.all_products_collection_url }}" class="link-connt">
         {{ 'cart.general.continue_shopping' | t }}
       </a>
     </div>
@@ -19,28 +19,17 @@
         <tbody>
           {% for item in cart.items %}
             <tr class="cart__row border-bottom line{{ forloop.index }}{% if forloop.first %} border-top{% endif %}">
-              <td class="cart__image-wrapper">
+              <td class="cart__image-wrapper prod-i-img">
                 <div>
-                  <img class="cart__image" src="{{ item | img_url: '95x95', scale: 2 }}" alt="{{ item.title | escape }}" data-item-url="{{ item.url }}">
+                  <img class="cart__image" src="{{ item | img_url: '160x240', scale: 2 }}" alt="{{ item.title | escape }}" data-item-url="{{ item.url }}">
                 </div>
               </td>
               <td class="cart__meta small--text-left">
                 <div class="list-view-item__title">
                   <a href="{{ item.url }}" class="cart__product-title">
                     {{ item.product.title }}
-                    {% if item.quantity > 1 %}
-                      <span class="medium-up--hide"><span class="visually-hidden">{{ 'cart.label.quantity' | t }}</span>(x{{ item.quantity }})</span>
-                    {% endif %}
                   </a>
                 </div>
-
-                {% unless item.variant.title contains 'Default' %}
-                  <div class="cart__meta-text">
-                    {% for option in item.product.options %}
-                      {{ option }}: {{ item.variant.options[forloop.index0] }}<br/>
-                    {% endfor %}
-                  </div>
-                {% endunless %}
 
                 {% comment %}
                   Optional, loop through custom product line items if available
@@ -70,10 +59,6 @@
                     {% endfor %}
                   </div>
                 {% endif %}
-
-                <p class="cart__remove small--hide">
-                  <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity=0" class="text-link text-link--accent" aria-label="{{ 'cart.general.remove' | t }} {{ item.product.title }}">{{ 'cart.general.remove' | t }}</a>
-                </p>
               </td>
               <td class="cart__price-wrapper text-right">
                 <dl>
@@ -138,8 +123,16 @@
               </td>
               <td class="text-right small--hide">
                 <div class="cart__qty">
-                  <label for="updates_large_{{ item.key }}" class="cart__qty-label">{{ 'cart.label.quantity' | t }}</label>
+                  <div class="count-product-wrap">
+                  <label style="display: none;" for="updates_large_{{ item.key }}" class="cart__qty-label">{{ 'cart.label.quantity' | t }}</label>
+                  <button class="minus-count-pro"><span>-</span></button>
                   <input class="cart__qty-input" type="number" name="updates[]" id="updates_large_{{ item.key }}" value="{{ item.quantity }}" min="0" pattern="[0-9]*" data-quantity-item="{{ forloop.index }}">
+                  <button class="plus-count-pro"><span>+</span></button> 
+                </div>
+                  <p class="cart__remove small--hide">
+                      <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity=0" class="text-link text-link--accent" aria-label="{{ 'cart.general.remove' | t }} {{ item.product.title }}">{{ 'cart.general.remove' | t }}</a>
+                    </p>
+                    
                 </div>
               </td>
               <td class="text-right small--hide">
@@ -172,18 +165,20 @@
                       {{ 'cart.general.remove' | t }}
                   </a>
                   <div class="cart__qty cart__update-control">
-                    <label for="updates_{{ item.key }}"
+                      <label for="updates_{{ item.key }}"
+                      style="display: none;"
                       class="cart__qty-label">
                         {{ 'cart.label.quantity' | t }}
                     </label>
-                    <input class="cart__qty-input" type="number" id="updates_{{ item.key }}"
+                      <button class="minus-count-pro"><span>-</span></button>
+                      <input class="cart__qty-input" type="number" id="updates_{{ item.key }}"
                       value="{{ item.quantity }}" min="0" pattern="[0-9]*"
                       data-quantity-item="{{ forloop.index }}">
+                      <button class="plus-count-pro"><span>+</span></button> 
                   </div>
                   <button type="submit" name="update" class="btn btn--small medium-up--hide cart__update-control"
-                    aria-label="{{ 'cart.general.update' | t }} {{ item.product.title }}">
-                    {{ 'cart.general.update' | t }}
-                  </button>
+                  aria-label="{{ 'cart.general.update' | t }} {{ item.product.title }}">
+                  {{ 'cart.general.update' | t }}</button>
                 </div>
               </td>
             </tr>
@@ -246,13 +241,13 @@
       </div>
     </form>
   {% else %}
-    <div class="empty-page-content text-center">
+    <div class="empty-page-content text-center no-product">
       <h1>{{ 'cart.general.title' | t }}</h1>
-      <p class="cart--empty-message">{{ 'cart.general.empty' | t }}</p>
-      <div class="cookie-message">
+      <p class="cart--empty-message desc-non-pro">{{ 'cart.general.empty' | t }}</p>
+      <div class="cookie-message ">
         <p>{{ 'cart.general.cookies_required' | t }}</p>
       </div>
-      <a href="{{ routes.root_url }}" class="btn btn--has-icon-after cart__continue-btn">{{ 'general.404.link' | t }}{% include 'icon-arrow-right' %}</a>
+      <a href="{{ routes.root_url }}" class="btn btn--has-icon-after cart__continue-btn cart-to-shop">{{ 'general.404.link' | t }}{% include 'icon-arrow-right' %}</a>
     </div>
   {% endif %}
 </div>

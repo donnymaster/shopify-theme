@@ -2898,10 +2898,17 @@ theme.Filters = (function() {
 
       if (sort.length) {
         var urlStripped = url.replace(window.location.hash, '');
-        query = query !== '' ? '?q=' + query + '&' : '?';
 
-        window.location.href =
-          urlStripped + query + sort + selectors.mainContent;
+        query = query !== '' ? '?q=' + query + '&' : '?';
+        var getStr = window.location.search.substr(1);
+        if(getStr.indexOf('view=list')+1){
+          window.location.href =
+            urlStripped + query + sort + '&view=list' + selectors.mainContent;
+        }else{
+          window.location.href =
+            urlStripped + query + sort + selectors.mainContent;
+        }
+
       } else {
         // clean up our url if the sort value is blank for default
         window.location.href = url;
@@ -3373,6 +3380,7 @@ theme.Product = (function() {
         'submit',
         function(evt) {
           evt.preventDefault();
+
           this.$previouslyFocusedElement = $(':focus');
 
           var isInvalidQuantity = this.$quantityInput.val() <= 0;
@@ -3384,9 +3392,9 @@ theme.Product = (function() {
           } else {
             // disable the addToCart and dynamic checkout button while
             // request/cart popup is loading and handle loading state
-            this._handleButtonLoadingState(true);
-            var $data = $(this.selectors.productForm, this.$container);
-            this._addItemToCart($data);
+           // this._handleButtonLoadingState(true);
+           // var $data = $(this.selectors.productForm, this.$container);
+            //this._addItemToCart($data);
           }
         }.bind(this)
       );
